@@ -123,7 +123,19 @@ WeakReferenceMessenger.Default.Register<TextoModificadoMessage>
 ```cs
 WeakReferenceMessenger.Default.Send<new TextoModificadoMessage(Texto(propiedad))>();
 ```
-
+## Ejemplo template ListBox
+```cs
+ListBox ItemsSource="{Binding ListadoPersonas}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                    <Run Text="{Binding Path=Nombre}"></Run>
+                    <Run Text="-"></Run>...
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+ </ListBox>
+```
 
 
 
