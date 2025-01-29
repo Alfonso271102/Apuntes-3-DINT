@@ -148,7 +148,8 @@ class NavegationService
     }
 }
 ```
-
+- Si se usa un datatemplate, tener en cuenta meter en el contexto, ejemplo:
+- xmlns:modelos="clr-namespace:EjercicioPruebas3.Modelos"
 
 
 
