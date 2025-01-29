@@ -63,6 +63,27 @@ public MainWindow()
   ResizeMode="NoResize"
 ```
 
+# Aplicaciones monoventa
+- Click derecho agregar -> Control de usuario
+- MainWindow -> tendrá un:
+ ```xml
+--> Decidimos en cada momento que contenido se carga
+<ContentControl
+	Content="{Binding Path= ContenidoOpccion}"> -> Lo podemos cambiar con un boton con un command por ejemplo
+ </ContentControl>
+//En vm tendriamos que definir la propiedad private UserControl contenidoVista;
+ ```
+ Con el servicio navegacion instanciamos la pantalla -> tendra métodos que cargen los contenidos en funcion de los metodos -> return new Opcion4UserControl();
+ 
+  ```xml
+ <TabControl>
+	<TabItem>
+	  <local:UserControl1></UserControl> -> caragaria al momento todas las vistas  
+	</TabItem>
+ </TabControl>
+ ```
+
+
 
 
 
