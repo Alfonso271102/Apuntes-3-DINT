@@ -57,10 +57,11 @@ public MainWindow()
 1. No mostrar con .show, sino con .showDialog
 2. La ventana retorna un bool -> se puede controlar con DialogResult (boton aceptar -> retorna DialogResult = true)
 3. Se debe de poner el isdefault = true (este boton necesita manejador de eventos, no puede ser command, normalmente, dentro de este metodo, se pone DialogResult = true (antes de esto sae pueden ejecutar otras acciones)) e iscancel=true (en dos borones)
-4. Propiedades a poner en propiedades de window:
+5. Propiedades a poner en propiedades de window:
 ```xml
   ShowInTaskbar="False"
   ResizeMode="NoResize"
+  Windowstratuplocation="centerscren"
 ```
 
 # Aplicaciones monoventa
@@ -84,6 +85,69 @@ public MainWindow()
  ```
 
 # Mensajeria
+## Solicitud de informacion
+1. Crear una clase para el mensaje
+```cs
+public class TextoRequestMessage : RequestMessage<string(lo que busco)>{}
+```
+2. El VM de la ventana solicitante deberá de heredar de : ObservableRecipient
+3. En el momento que quiera solicitar la información haré:
+```cs
+Texto = WeakReferenceMessenger.Default.Send<TextoRequestMessage>();
+```
+4. El que proporciona icha información (MainWindowVM por ejemplo). En su constructor se prepara la respuesta:
+```cs
+WeakReferenceMessenger.Default.Register<MainWindowVM, TextoRequestMessage (el mensaje receptor)>
+(this, (r, m) =>
+{
+	m.Reply(r.Texto (o la propiedad que quiera));
+});
+```
+## Difusion de informacion
+1. Creamos la clase mensaje:
+```cs
+public class TextoModificadoMessage : ValueChangedMessage<string (lo que busco)>{
+	public TextoModificadoMessage(string texto) : base(texto){}
+}
+```
+2. El VM de la ventana solicitante deberá suscribirse (en el constructor):
+```cs
+WeakReferenceMessenger.Default.Register<TextoModificadoMessage>
+(this, (r, m) =>
+{
+	Texto = m.value;
+});
+
+```
+3. En el MainWindowVM en un momento decidirá que debe de difundir el valor:
+```cs
+WeakReferenceMessenger.Default.Send<new TextoModificadoMessage(Texto(propiedad))>();
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
