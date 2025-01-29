@@ -119,9 +119,9 @@ WeakReferenceMessenger.Default.Register<TextoModificadoMessage>
 });
 
 ```
-3. En el MainWindowVM en un momento decidirá que debe de difundir el valor:
+3. En el MainWindowVM (o el que toque)en un momento decidirá que debe de difundir el valor:
 ```cs
-WeakReferenceMessenger.Default.Send<new TextoModificadoMessage(Texto(propiedad))>();
+WeakReferenceMessenger.Default.Send(new TextoModificadoMessage(Propiedad));
 ```
 ## Ejemplo template ListBox
 ```cs
@@ -137,6 +137,17 @@ ListBox ItemsSource="{Binding ListadoPersonas}">
  </ListBox>
 ```
 
+- En el navigation service, para que no se abran nuevas instancias, hacer:
+```cs
+class NavegationService
+{
+    private static readonly UserControl PantallaNuevaPersonaS =  new NuevaPersona();
+    public UserControl PantallaNuevaPersona()
+    {
+        return  PantallaNuevaPersonaS;
+    }
+}
+```
 
 
 
